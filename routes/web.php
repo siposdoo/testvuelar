@@ -10,7 +10,9 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'HomeController@index')->where('any', '.*');
+Route::get('/administracija', 'SinglePageController@index')->where('any', '.*');
+Route::post('/vuelogin', 'Auth\LoginController@vuelogin');
+Route::get('/vuelogin', 'LoginController@index');
+Route::get('/logout', 'Auth\LoginController@logout');
+ 
