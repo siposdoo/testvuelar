@@ -2098,8 +2098,8 @@ __webpack_require__.r(__webpack_exports__);
           } else {
             _this.errors.push('Netacni podatci.');
           }
-        })["catch"](function (erra) {
-          return console.log(erra);
+        })["catch"](function (erraa) {
+          return console.log(erraa);
         });
       }
 
