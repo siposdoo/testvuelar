@@ -56,8 +56,8 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
-        'name' => env('MAIL_FROM_NAME', 'Example'),
+        'address' => env('MAIL_FROM_ADDRESS', 'ssttaanniisllaavvpp@gmail.com'),
+        'name' => env('MAIL_FROM_NAME', 'Mail VueJS'),
     ],
 
     /*
@@ -71,7 +71,7 @@ return [
     |
     */
 
-    'encryption' => env('MAIL_ENCRYPTION', 'tls'),
+    'encryption' => env('MAIL_ENCRYPTION',  ''),
 
     /*
     |--------------------------------------------------------------------------
@@ -111,7 +111,11 @@ return [
     | of the emails. Or, you may simply stick with the Laravel defaults!
     |
     */
-
+    'ssloptions' => [
+        'allow_self_signed' => env('MAIL_SSLOPTIONS_ALLOW_SELF_SIGNED', false),
+        'verify_peer' => env('MAIL_SSLOPTIONS_VERIFY_PEER', true),
+        'verify_peer_name' => env('MAIL_SSLOPTIONS_VERIFY_PEER_NAME', true),
+    ],
     'markdown' => [
         'theme' => 'default',
 
