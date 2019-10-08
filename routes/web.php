@@ -12,6 +12,7 @@
 */
 Route::get('/', 'HomeController@index')->where('any', '.*');
 Route::get('/administracija', 'SinglePageController@index')->where('any', '.*');
+Route::get('/subscribers', 'SinglePageController@subscribers')->where('any', '.*');
 Route::post('/vuelogin', 'Auth\LoginController@vuelogin');
 Route::get('/vuelogin', 'LoginController@index');
 Route::get('/logout', 'Auth\LoginController@logout');
