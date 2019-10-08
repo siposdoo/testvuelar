@@ -21,6 +21,7 @@ window.Vue = require('vue');
 
  
 Vue.component('citati-controller', require('./components/Citati.vue').default);
+Vue.component('pretplanici-controller', require('./components/Pretplatnici.vue').default);
 Vue.component('navbar-controller', require('./components/Navbar.vue').default);
  
 Vue.component('home-controller', require('./components/Home.vue').default);
