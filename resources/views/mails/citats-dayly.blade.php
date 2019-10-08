@@ -10,6 +10,6 @@
 <small>Kreiran <strong>{{ \Carbon\Carbon::parse($citat->created_at)->diffForHumans() }}</strong></small>
  
  
-Thanks,<br>
+Vaš,<br>
 {{ config('app.name') }}
 @endcomponent
