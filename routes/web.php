@@ -15,5 +15,7 @@ Route::get('/administracija', 'SinglePageController@index')->where('any', '.*');
 Route::get('/subscribers', 'SinglePageController@subscribers')->where('any', '.*');
 Route::post('/vuelogin', 'Auth\LoginController@vuelogin');
 Route::get('/vuelogin', 'LoginController@index');
+Route::get('/unsubscribe/{email_token}', 'SubscriberController@unsubscribe');
+Route::get('/subscribe/{email_token}', 'SubscriberController@subscribe');
 Route::get('/logout', 'Auth\LoginController@logout');
  
