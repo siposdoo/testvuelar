@@ -22,13 +22,13 @@ class SubscriberController extends Controller
     {
        if($request->input('filter')>-1)
        {
-        $subscribers = Subscriber::where('payment', '=', $request->input('filter'))->orderBy('created_at', 'desc')->paginate(15); 
+        $subscribers = Subscriber::where('payment', '=', $request->input('filter'))->withTrashed()->orderBy('created_at', 'desc')->paginate(15); 
         return SubscriberResource::collection($subscribers);  
       }
       else
       {
         
-        $subscribers = Subscriber::orderBy('created_at', 'desc')->paginate(15);
+        $subscribers = Subscriber::orderBy('created_at', 'desc')->withTrashed()->paginate(15);
         return SubscriberResource::collection($subscribers);  
       }
        
@@ -59,7 +59,7 @@ class SubscriberController extends Controller
             }
         } else {
             if ($pretplatnik->save()) {
-                dispatch(new SendVerificationEmail($pretplatnik)); 
+                dispatch(new SendVerificationEmail($pretplatnik,0)); 
 
                 return new SubscriberResource($pretplatnik);
             }
@@ -97,6 +97,35 @@ class SubscriberController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    public function subscribe($token){
+
+        $pretplatnik =  Subscriber::where('email_token', '=', $token)->onlyTrashed()->first();
+
+
+        if( $pretplatnik ){
+            if ($pretplatnik->restore()) {
+            dispatch(new SendVerificationEmail($pretplatnik,2)); 
+            return view('subscribed');;
+        }}
+        else
+        {
+            abort(404);
+        }
+    }
+    public function unsubscribe($token){
+
+        $pretplatnik =  Subscriber::where('email_token', '=', $token)->first();
+
+         if( $pretplatnik ){
+        if ($pretplatnik->delete()) {
+            dispatch(new SendVerificationEmail($pretplatnik,1)); 
+            return view('unsubscribed');
+        }}
+        else
+        {
+            abort(404);
+        }
+    }
     public function destroy($id)
     {
         $pretplatnik =   Subscriber::findOrFail($id);

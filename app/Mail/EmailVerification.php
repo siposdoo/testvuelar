@@ -11,15 +11,17 @@ class EmailVerification extends Mailable
 {
     use Queueable, SerializesModels;
     protected $user;
+    protected $act;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($user)
+    public function __construct($user,$act)
     {
         $this->user = $user;
+        $this->act = $act;
         //
     }
 
@@ -30,7 +32,15 @@ class EmailVerification extends Mailable
      */
     public function build()
     {
-        return $this->view('email.email')->with(['email_token' => $this->user->email_token,]);
+        if($this->act==0){
+        return $this->view('email.email_subscribed')->with(['email_token' => $this->user->email_token,]);
+    }
+    else if($this->act==1){
+        return $this->view('email.email_unsubscribed')->with(['email_token' => $this->user->email_token,]);
+    }
+    else if($this->act==2){
+        return $this->view('email.email_restored')->with(['email_token' => $this->user->email_token,]);
+    }
        
     }
 }

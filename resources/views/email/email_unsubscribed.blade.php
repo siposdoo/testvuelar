@@ -1,0 +1,1 @@
+<h1>Pozdrav deaktivirali ste nalog na VueLar... </h1>Kliknite na link u koliko zelite da se prijavite  {{url('/subscribe/'.$email_token)}}
