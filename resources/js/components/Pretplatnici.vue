@@ -31,6 +31,7 @@
     
        <th>Datum registovanja</th>
           <th>Pretplata</th>
+           <th>Akcije</th>
         </tr>
         </thead>
          <tbody>
@@ -38,6 +39,8 @@
       <td>{{pretplanik.email}}</td>
       <td>{{pretplanik.created_at}}</td>
       <td><span v-if="pretplanik.payment==1" class="badge badge-success">Pretplata</span><span v-else class="badge badge-warning">Nema pretplate</span></td>
+       <td><button  @click="changeStatusSubscriber(pretplanik);" v-if="pretplanik.deleted_at" class="btn btn-secondary" data-dismiss="modal">Aktiviraj</button>
+              <button  @click="changeStatusSubscriber(pretplanik);" v-if="!pretplanik.deleted_at" class="btn  btn-danger">Deaktiviraj</button></td>
       
      
     </tr>
@@ -69,6 +72,28 @@ export default {
     this.fetchPretplanici();
   },
   methods: {
+    changeStatusSubscriber(pretp)
+    {
+      
+      if(pretp.deleted_at)
+      {
+        
+         fetch('/subscribe/'+pretp.email_token)
+        .then()
+         
+        .catch(err => console.log(err));
+
+      }else
+      {
+        
+         fetch('/unsubscribe/'+pretp.email_token)
+        .then()
+         
+        .catch(err => console.log(err));
+
+      }
+ this.fetchPretplanici();
+    },
     filterPretplata(event){
  this.fetchPretplanici(this.pagination.current_page_url+'&filter='+event.target.value);
     },

@@ -2524,6 +2524,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2543,6 +2546,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     this.fetchPretplanici();
   },
   methods: {
+    changeStatusSubscriber: function changeStatusSubscriber(pretp) {
+      if (pretp.deleted_at) {
+        fetch('/subscribe/' + pretp.email_token).then()["catch"](function (err) {
+          return console.log(err);
+        });
+      } else {
+        fetch('/unsubscribe/' + pretp.email_token).then()["catch"](function (err) {
+          return console.log(err);
+        });
+      }
+
+      this.fetchPretplanici();
+    },
     filterPretplata: function filterPretplata(event) {
       this.fetchPretplanici(this.pagination.current_page_url + '&filter=' + event.target.value);
     },
@@ -22402,6 +22418,39 @@ var render = function() {
                 : _c("span", { staticClass: "badge badge-warning" }, [
                     _vm._v("Nema pretplate")
                   ])
+            ]),
+            _vm._v(" "),
+            _c("td", [
+              pretplanik.deleted_at
+                ? _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-secondary",
+                      attrs: { "data-dismiss": "modal" },
+                      on: {
+                        click: function($event) {
+                          return _vm.changeStatusSubscriber(pretplanik)
+                        }
+                      }
+                    },
+                    [_vm._v("Aktiviraj")]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              !pretplanik.deleted_at
+                ? _c(
+                    "button",
+                    {
+                      staticClass: "btn  btn-danger",
+                      on: {
+                        click: function($event) {
+                          return _vm.changeStatusSubscriber(pretplanik)
+                        }
+                      }
+                    },
+                    [_vm._v("Deaktiviraj")]
+                  )
+                : _vm._e()
             ])
           ])
         }),
@@ -22421,7 +22470,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Datum registovanja")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Pretplata")])
+        _c("th", [_vm._v("Pretplata")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Akcije")])
       ])
     ])
   }
