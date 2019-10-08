@@ -16,4 +16,14 @@ class SinglePageController extends Controller
         return redirect('/vuelogin');
      }
     }
+    
+    public function subscribers() {
+         
+       
+        if(Auth::check()){
+        return view('users');
+     }else{
+        return redirect('/vuelogin');
+     }
+    }
 }
