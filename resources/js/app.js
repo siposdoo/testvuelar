@@ -26,6 +26,7 @@ Vue.component('navbar-controller', require('./components/Navbar.vue').default);
  
 Vue.component('home-controller', require('./components/Home.vue').default);
 Vue.component('login-component', require('./components/Login.vue').default);
+Vue.component('register-component', require('./components/Register.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

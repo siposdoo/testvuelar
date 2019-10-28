@@ -2,11 +2,11 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="page-header">
-              <h2>Prijava</h2>
+              <h2>Register</h2>
             </div>
             <div class="col-md-12 text-center">
                 <p v-if="errors.length">
-                    <b>Doslo je do greske:</b>
+                    <b>Error:</b>
                     <ul class="list-group">
                       <li v-for="error in errors" v-bind:key="error"  class="list-group-item list-group-item-danger mb-3">{{ error }}</li>
                     </ul>
@@ -14,12 +14,20 @@
             </div>
             <div class="col-md-6" v-if="loginfalse = true">
                 <form @submit="checkForm" id="createAdministrator">
+                   <div class="form-group">
+                    <label for="email">First Name :</label>
+                    <input v-model="fname" type="text" class="form-control" id="email" placeholder="Unesite Email" name="fname">
+                  </div>
+                   <div class="form-group">
+                    <label for="email">Last Name :</label>
+                    <input v-model="lname" type="text" class="form-control" id="email" placeholder="Unesite Email" name="lname">
+                  </div>
                   <div class="form-group">
                     <label for="email">Email :</label>
                     <input v-model="email" type="email" class="form-control" id="email" placeholder="Unesite Email" name="email">
                   </div>
                   <div class="form-group">
-                    <label for="pwd">Lozinka:</label>
+                    <label for="pwd">Password:</label>
                     <input v-model="password" type="password" class="form-control" id="password" placeholder="********" name="password">
                   </div>
                   <button type="submit" class="btn btn-default">Prijavi se</button>
@@ -38,6 +46,8 @@
                 errors: [],
                 state: {
                     email: '',
+                    lname: '',
+                    fname: '',
                     password: ''
                 }
             }
@@ -58,12 +68,14 @@
         var formContents = jQuery("#createAdministrator").serialize();
        
          let userData={
+                lname:this.lname,
+                fname:this.fname,
                 email:this.email,
                 password:this.password
                
                
                 }
-          fetch('/vuelogin',{
+          fetch('/vueregister',{
                    method:'post',
                    body:JSON.stringify(userData),
                    headers:{
